@@ -97,6 +97,7 @@ public class UserModel {
     }
     
     public void resetForm(){
+        setId(null);
         setNama("");
         setUsername("");
         setPassword("");
