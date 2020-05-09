@@ -112,6 +112,22 @@ public class ViewAdminUser extends javax.swing.JFrame implements UserListener, L
     public void setTxtusername(JTextField txtusername) {
         this.txtusername = txtusername;
     }
+
+    public JTextField getTxtpassword() {
+        return txtpassword;
+    }
+
+    public void setTxtpassword(JTextField txtpassword) {
+        this.txtpassword = txtpassword;
+    }
+
+    public JTextField getTxtpassword2() {
+        return txtpassword2;
+    }
+
+    public void setTxtpassword2(JTextField txtpassword2) {
+        this.txtpassword2 = txtpassword2;
+    }
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -135,14 +151,23 @@ public class ViewAdminUser extends javax.swing.JFrame implements UserListener, L
         btnbatal = new javax.swing.JButton();
         btnhapus = new javax.swing.JButton();
         btntambah = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        txtpassword = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        txtpassword2 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setText("ID");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 60, -1, -1));
 
         txtid.setEditable(false);
+        getContentPane().add(txtid, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 50, 222, -1));
+        getContentPane().add(txtusername, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 130, 222, -1));
 
         jLabel2.setText("USERNAME");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 140, -1, -1));
 
         tableuser.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -157,9 +182,14 @@ public class ViewAdminUser extends javax.swing.JFrame implements UserListener, L
         ));
         jScrollPane1.setViewportView(tableuser);
 
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(59, 304, 417, 238));
+
         jLabel3.setText("DASHBOARD ADMIN");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 10, -1, -1));
 
         jLabel4.setText("NAMA");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 100, -1, -1));
+        getContentPane().add(txtnama, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 90, 222, -1));
 
         btnsimpan.setText("SIMPAN");
         btnsimpan.addActionListener(new java.awt.event.ActionListener() {
@@ -167,6 +197,7 @@ public class ViewAdminUser extends javax.swing.JFrame implements UserListener, L
                 btnsimpanActionPerformed(evt);
             }
         });
+        getContentPane().add(btnsimpan, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 260, -1, -1));
 
         btnbatal.setText("BATAL");
         btnbatal.addActionListener(new java.awt.event.ActionListener() {
@@ -174,6 +205,7 @@ public class ViewAdminUser extends javax.swing.JFrame implements UserListener, L
                 btnbatalActionPerformed(evt);
             }
         });
+        getContentPane().add(btnbatal, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 260, -1, -1));
 
         btnhapus.setText("HAPUS");
         btnhapus.addActionListener(new java.awt.event.ActionListener() {
@@ -181,6 +213,7 @@ public class ViewAdminUser extends javax.swing.JFrame implements UserListener, L
                 btnhapusActionPerformed(evt);
             }
         });
+        getContentPane().add(btnhapus, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 260, -1, -1));
 
         btntambah.setText("TAMBAH");
         btntambah.addActionListener(new java.awt.event.ActionListener() {
@@ -188,78 +221,21 @@ public class ViewAdminUser extends javax.swing.JFrame implements UserListener, L
                 btntambahActionPerformed(evt);
             }
         });
+        getContentPane().add(btntambah, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 260, -1, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(19, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel3)
-                                        .addGap(109, 109, 109))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(btnbatal)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(btnhapus)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(btntambah)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(btnsimpan)))
-                                .addGap(32, 32, 32))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel2)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(txtusername, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel1)
-                                            .addComponent(jLabel4))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(txtid, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(txtnama, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                .addGap(44, 44, 44))))))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel3)
-                .addGap(31, 31, 31)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(txtid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(txtnama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(txtusername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnsimpan)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btntambah)
-                        .addComponent(btnhapus)
-                        .addComponent(btnbatal)))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        jLabel5.setText("PASSWORD");
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 180, -1, -1));
+
+        txtpassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtpasswordActionPerformed(evt);
+            }
+        });
+        getContentPane().add(txtpassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 180, 222, -1));
+
+        jLabel6.setText("ULANGI PASSWORD");
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 220, -1, -1));
+        getContentPane().add(txtpassword2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 220, 222, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -283,6 +259,10 @@ public class ViewAdminUser extends javax.swing.JFrame implements UserListener, L
         // TODO add your handling code here:
         controller.deleteUser(this);
     }//GEN-LAST:event_btnhapusActionPerformed
+
+    private void txtpasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtpasswordActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtpasswordActionPerformed
 
     /**
      * @param args the command line arguments
@@ -334,10 +314,14 @@ public class ViewAdminUser extends javax.swing.JFrame implements UserListener, L
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tableuser;
     private javax.swing.JTextField txtid;
     private javax.swing.JTextField txtnama;
+    private javax.swing.JTextField txtpassword;
+    private javax.swing.JTextField txtpassword2;
     private javax.swing.JTextField txtusername;
     // End of variables declaration//GEN-END:variables
 }
