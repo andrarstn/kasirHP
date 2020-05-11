@@ -15,5 +15,7 @@ import java.util.List;
  */
 public interface PesananDao {
     public void insertPesanan(Pesanan p) throws PesananException;
+    public void deletePesanan(Integer id) throws PesananException;
+    public List<Pesanan> getUserPesanan(String Username) throws PesananException;
     public List<Pesanan> getAllPesanan() throws PesananException;
 }

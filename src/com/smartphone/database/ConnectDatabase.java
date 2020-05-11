@@ -7,8 +7,14 @@ package com.smartphone.database;
 
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.Driver;
+import com.smartphone.error.PesananException;
+import com.smartphone.error.SmartphoneException;
 import com.smartphone.error.UserException;
+import com.smartphone.impl.PesananDaoImpl;
+import com.smartphone.impl.SmartphoneDaoImpl;
 import com.smartphone.impl.UserDaoImpl;
+import com.smartphone.service.PesananDao;
+import com.smartphone.service.SmartphoneDao;
 import com.smartphone.service.UserDao;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -21,8 +27,9 @@ import javax.swing.JOptionPane;
 public class ConnectDatabase {
     private static Connection koneksi;
     private static UserDao ud;
-            
-            
+    private static SmartphoneDao sd;
+    private static PesananDao pd;
+               
     public static Connection getKoneksi(){
         if(koneksi == null){
             try{
@@ -49,5 +56,19 @@ public class ConnectDatabase {
             ud = new UserDaoImpl(getKoneksi());
         }
         return ud;
+    }
+    
+    public static SmartphoneDao getSmartphoneDao() throws SmartphoneException{
+        if(sd==null){
+            sd = new SmartphoneDaoImpl(getKoneksi());
+        }
+        return sd;
+    }
+    
+    public static PesananDao getPesananDao() throws PesananException{
+        if(pd==null){
+            pd = new PesananDaoImpl(getKoneksi());
+        }
+        return pd;
     }
 }

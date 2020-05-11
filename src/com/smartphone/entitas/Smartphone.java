@@ -12,14 +12,16 @@ import java.util.Objects;
  * @author andra
  */
 public class Smartphone {
-    private Integer id,harga;
+    private Integer id,harga,stok;
     private String nama,merk,rilis,layar,kamera,os,cpu,gpu,ram,battery;
 
     public Smartphone() {
     }
 
-    public Smartphone(Integer harga, String nama, String merk, String rilis, String layar, String kamera, String os, String cpu, String gpu, String ram, String battery) {
+    public Smartphone(Integer id, Integer harga, Integer stok, String nama, String merk, String rilis, String layar, String kamera, String os, String cpu, String gpu, String ram, String battery) {
+        this.id = id;
         this.harga = harga;
+        this.stok = stok;
         this.nama = nama;
         this.merk = merk;
         this.rilis = rilis;
@@ -31,7 +33,7 @@ public class Smartphone {
         this.ram = ram;
         this.battery = battery;
     }
-    
+
     public Integer getId() {
         return id;
     }
@@ -128,11 +130,20 @@ public class Smartphone {
         this.battery = battery;
     }
 
+    public Integer getStok() {
+        return stok;
+    }
+
+    public void setStok(Integer stok) {
+        this.stok = stok;
+    }
+
     @Override
     public int hashCode() {
-        int hash = 7;
+        int hash = 3;
         hash = 79 * hash + Objects.hashCode(this.id);
         hash = 79 * hash + Objects.hashCode(this.harga);
+        hash = 79 * hash + Objects.hashCode(this.stok);
         hash = 79 * hash + Objects.hashCode(this.nama);
         hash = 79 * hash + Objects.hashCode(this.merk);
         hash = 79 * hash + Objects.hashCode(this.rilis);
@@ -194,8 +205,13 @@ public class Smartphone {
         if (!Objects.equals(this.harga, other.harga)) {
             return false;
         }
+        if (!Objects.equals(this.stok, other.stok)) {
+            return false;
+        }
         return true;
     }
+    
+    
     
     
 }

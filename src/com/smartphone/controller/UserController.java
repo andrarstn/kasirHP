@@ -61,14 +61,23 @@ public class UserController {
     public void insertUser(ViewAdminUser view){
         String nama = view.getTxtnama().getText();
         String username = view.getTxtusername().getText();
+        String pw = view.getTxtpassword().getText();
+        String pw2 = view.getTxtpassword2().getText();
         
         if(nama.trim().equals("")){
             JOptionPane.showMessageDialog(view, "Nama tidak boleh kosong");
         }else if(username.trim().equals("")){
             JOptionPane.showMessageDialog(view, "Username tidak boleh kosong");
+        }else if(pw.trim().equals("")){
+            JOptionPane.showMessageDialog(view, "Password tidak boleh kosong");
+        }else if(pw2.trim().equals("")){
+            JOptionPane.showMessageDialog(view, "Password tidak boleh kosong");
+        }else if(!pw.equals(pw2)){
+            JOptionPane.showMessageDialog(view, "Password tidak sama");
         }else{
             model.setNama(nama);
             model.setUsername(username);
+            model.setPassword(pw);
             try{
                 model.insertUser();
                 JOptionPane.showMessageDialog(view, "Berhasil ditambah");

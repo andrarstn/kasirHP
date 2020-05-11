@@ -12,16 +12,17 @@ import java.util.Objects;
  * @author andra
  */
 public class Pesanan {
-    private Integer id;
-    private String nama,tanggal,smartphone;
+    private Integer id, jumlah;
+    private String username,tanggal,smartphone;
 
     public Pesanan() {
     }
 
-    public Pesanan(String nama, String tanggal, String smartphone) {
-        this.nama = nama;
+    public Pesanan(String username, String tanggal, String smartphone, Integer jumlah) {
+        this.username = username;
         this.tanggal = tanggal;
         this.smartphone = smartphone;
+        this.jumlah = jumlah;
     }
     
     public Integer getId() {
@@ -32,12 +33,20 @@ public class Pesanan {
         this.id = id;
     }
 
-    public String getNama() {
-        return nama;
+    public Integer getJumlah() {
+        return jumlah;
     }
 
-    public void setNama(String nama) {
-        this.nama = nama;
+    public void setJumlah(Integer jumlah) {
+        this.jumlah = jumlah;
+    }
+    
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getTanggal() {
@@ -59,10 +68,11 @@ public class Pesanan {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 53 * hash + Objects.hashCode(this.id);
-        hash = 53 * hash + Objects.hashCode(this.nama);
-        hash = 53 * hash + Objects.hashCode(this.tanggal);
-        hash = 53 * hash + Objects.hashCode(this.smartphone);
+        hash = 37 * hash + Objects.hashCode(this.id);
+        hash = 37 * hash + Objects.hashCode(this.jumlah);
+        hash = 37 * hash + Objects.hashCode(this.username);
+        hash = 37 * hash + Objects.hashCode(this.tanggal);
+        hash = 37 * hash + Objects.hashCode(this.smartphone);
         return hash;
     }
 
@@ -78,7 +88,7 @@ public class Pesanan {
             return false;
         }
         final Pesanan other = (Pesanan) obj;
-        if (!Objects.equals(this.nama, other.nama)) {
+        if (!Objects.equals(this.username, other.username)) {
             return false;
         }
         if (!Objects.equals(this.tanggal, other.tanggal)) {
@@ -90,7 +100,10 @@ public class Pesanan {
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }
+        if (!Objects.equals(this.jumlah, other.jumlah)) {
+            return false;
+        }
         return true;
     }
-    
+
 }

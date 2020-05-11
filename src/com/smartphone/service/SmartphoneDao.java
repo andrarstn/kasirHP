@@ -17,6 +17,7 @@ public interface SmartphoneDao {
     public void insertSmartphone(Smartphone s) throws SmartphoneException;
     public void updateSmartphone(Smartphone s) throws SmartphoneException;
     public void deleteSmartphone(Integer id) throws SmartphoneException;
+    public void updateStok(Integer jumlah,String nama) throws SmartphoneException; 
     public Smartphone getSmartphone(Integer id) throws SmartphoneException;
     public List<Smartphone> selectAllSmartphone() throws SmartphoneException;
 }
