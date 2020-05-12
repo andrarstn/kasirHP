@@ -37,11 +37,12 @@ public class ViewAdminInputSmartphone extends javax.swing.JFrame implements Smar
     public ViewAdminInputSmartphone() {
         tableModel = new TableModelSmartphone();
         model = new SmartphoneModel();
+        model.setLstn(this);
         controller = new SmartphoneController();
         controller.setModel(model);
         initComponents();
         tablesmartphone.getSelectionModel().addListSelectionListener(this);
-        tablesmartphone.setModel(tableModel);
+        tablesmartphone.setModel(tableModel);      
     }
 
     public JTextField getTxtid() {
@@ -332,9 +333,14 @@ public class ViewAdminInputSmartphone extends javax.swing.JFrame implements Smar
         jPanel2.add(btnhapus, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 275, -1, -1));
 
         btnubah.setText("Ubah");
+        btnubah.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnubahActionPerformed(evt);
+            }
+        });
         jPanel2.add(btnubah, new org.netbeans.lib.awtextra.AbsoluteConstraints(292, 275, -1, -1));
 
-        btnsimpan.setText("Simpan");
+        btnsimpan.setText("Tambah");
         btnsimpan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnsimpanActionPerformed(evt);
@@ -365,6 +371,11 @@ public class ViewAdminInputSmartphone extends javax.swing.JFrame implements Smar
         jPanel2.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 10, -1, -1));
 
         txtid.setEditable(false);
+        txtid.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                txtidPropertyChange(evt);
+            }
+        });
         jPanel2.add(txtid, new org.netbeans.lib.awtextra.AbsoluteConstraints(99, 6, 142, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -389,14 +400,6 @@ public class ViewAdminInputSmartphone extends javax.swing.JFrame implements Smar
     private void btnhapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnhapusActionPerformed
         // TODO add your handling code here:
         controller.deleteSmartphone(this);
-        ViewAdminInputSmartphone vau = new ViewAdminInputSmartphone();
-        try {
-            vau.loadDatabase();
-        } catch (SQLException | SmartphoneException ex) {
-            Logger.getLogger(ViewAdminUser.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        vau.setVisible(true);
-        dispose();
     }//GEN-LAST:event_btnhapusActionPerformed
 
     private void btnsimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsimpanActionPerformed
@@ -449,6 +452,15 @@ public class ViewAdminInputSmartphone extends javax.swing.JFrame implements Smar
         jLabel7.setCursor(cursor);
         jLabel7.setVisible(true);
     }//GEN-LAST:event_jLabel16MouseEntered
+
+    private void txtidPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_txtidPropertyChange
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtidPropertyChange
+
+    private void btnubahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnubahActionPerformed
+        // TODO add your handling code here:
+        controller.updateSmartphone(this);
+    }//GEN-LAST:event_btnubahActionPerformed
 
     /**
      * @param args the command line arguments
@@ -532,7 +544,7 @@ public class ViewAdminInputSmartphone extends javax.swing.JFrame implements Smar
         txtid.setText(model.getId()+"");
         txtnama.setText(model.getNama());
         txtmerk.setText(model.getMerk());
-        txtharga.setText(Integer.toString(model.getHarga()));
+        txtharga.setText(model.getHarga()+"");
         txtrilis.setText(model.getRilis());
         txtlayar.setText(model.getLayar());
         txtkamera.setText(model.getKamera());
@@ -541,7 +553,7 @@ public class ViewAdminInputSmartphone extends javax.swing.JFrame implements Smar
         txtgpu.setText(model.getGpu());
         txtram.setText(model.getRam());
         txtbattery.setText(model.getBattery());
-        txtstok.setText(Integer.toString(model.getStok()));
+        txtstok.setText(model.getStok()+"");
     }
 
     @Override

@@ -27,8 +27,9 @@ public class SmartphoneDaoImpl implements SmartphoneDao{
     private final String insertSmartphone = "INSERT INTO smartphone"+ "(nama, merk, harga, rilis, layar, kamera, os, cpu, gpu, ram, battery, stok) VALUES"+"(?,?,?,?,?,?,?,?,?,?,?,?)";
     private final String updateSmartphone = "UPDATE smartphone SET nama=?, merk=?, harga=?, rilis=?, layar=?, kamera=?, os=?, cpu=?, gpu=?, ram=?, battery=?, stok=? WHERE id=?";
     private final String deleteSmartphone = "DELETE FROM smartphone WHERE id=?";
-    private final String updateStok = "UPDATE smartphone SET stok=? WHERE nama=?";
+    private final String updateStokSmartphone = "UPDATE smartphone SET stok=? WHERE nama=?";
     private final String getSmartphone = "SELECT * FROM smartphone WHERE id=?";
+    private final String getStokSmartphone = "SELECT * FROM smartphone WHERE nama=?";
     private final String getAllSmartphone = "SELECT * FROM smartphone";
 
     public SmartphoneDaoImpl(Connection conn) {
@@ -160,8 +161,40 @@ public class SmartphoneDaoImpl implements SmartphoneDao{
     }
 
     @Override
-    public void updateStok(String nama) throws SmartphoneException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void updateStokSmartphone(Smartphone s) throws SmartphoneException {
+        PreparedStatement stmt=null;
+        try{
+            conn.setAutoCommit(false);
+            stmt = conn.prepareStatement(updateStokSmartphone, Statement.RETURN_GENERATED_KEYS);
+            stmt.setInt(1, s.getStok());
+            
+            stmt.setString(2, s.getNama());
+            stmt.executeUpdate();
+            
+            ResultSet result = stmt.getGeneratedKeys();
+            if(result.next()){
+                s.setId(result.getInt(1));
+            }
+            conn.commit();
+        }catch(SQLException ux){
+            try {
+                conn.rollback();
+            } catch (SQLException ex) {
+            }
+            throw new SmartphoneException(ux.getMessage());
+        }finally{
+            try {
+                conn.setAutoCommit(true);
+            } catch (SQLException ex) {
+            }
+            if(stmt!=null){
+               try{
+                 stmt.close();  
+               }catch(SQLException x){
+                   
+               }
+            }
+        }
     }
     
     @Override
@@ -204,6 +237,28 @@ public class SmartphoneDaoImpl implements SmartphoneDao{
         }
     }
 
+    @Override
+    public Smartphone getStokSmartphone(String username) throws SmartphoneException {
+        PreparedStatement stmt;
+        try{
+            stmt = conn.prepareStatement(getStokSmartphone);
+            stmt.setString(1, username);
+            Smartphone s = null;
+            ResultSet result = stmt.executeQuery();
+            if(result.next()){
+                s = new Smartphone();
+                s.setStok(result.getInt("stok"));
+                s.setHarga(result.getInt("harga"));
+            }else{
+                throw new SmartphoneException("Smartphone dengan username "+username+" tidak ditemukan");
+            }
+            return s;
+        }catch(SQLException ux){
+            throw new SmartphoneException(ux.getMessage());
+        }finally{
+        }
+    }
+    
     @Override
     public List<Smartphone> selectAllSmartphone() throws SmartphoneException {
         Statement stmt=null;

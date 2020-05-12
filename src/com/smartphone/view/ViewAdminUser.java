@@ -14,6 +14,7 @@ import com.smartphone.event.UserListener;
 import com.smartphone.model.TableModelUser;
 import com.smartphone.model.UserModel;
 import com.smartphone.service.UserDao;
+import com.smartphone.session.Session;
 import java.awt.Cursor;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -28,9 +29,9 @@ import javax.swing.event.ListSelectionListener;
  * @author andra
  */
 public class ViewAdminUser extends javax.swing.JFrame implements UserListener, ListSelectionListener {
-    private TableModelUser tableModel;
-    private UserModel model;
-    private UserController controller;
+    private final TableModelUser tableModel;
+    private final UserModel model;
+    private final UserController controller;
     /**
      * Creates new form ViewAdminUser
      */
@@ -46,6 +47,7 @@ public class ViewAdminUser extends javax.swing.JFrame implements UserListener, L
         
         tableuser.getSelectionModel().addListSelectionListener(this);
         tableuser.setModel(tableModel);
+        System.out.println(Session.getUsername());
     }
 
     @Override

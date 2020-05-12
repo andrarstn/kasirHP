@@ -10,6 +10,7 @@ import com.smartphone.database.ConnectDatabase;
 import com.smartphone.entitas.User;
 import com.smartphone.error.UserException;
 import com.smartphone.service.UserDao;
+import com.smartphone.session.Session;
 import java.awt.Cursor;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -212,12 +213,14 @@ public class ViewLogin extends javax.swing.JFrame {
             User u = ud.getlogin(txtusername.getText(), txtpassword.getText());
             if(txtusername.getText().equals(u.getUsername()) && txtpassword.getText().equals(u.getPassword())){
                 if("admin".equals(u.getUsername())){
+                    Session.setUsername(txtusername.getText());
                     ViewAdminUser vau = new ViewAdminUser();
                     vau.loadDatabase();
                     vau.setVisible(true);
                     dispose();
                 }else{
-                    new ViewRegister().setVisible(true);
+                    Session.setUsername(txtusername.getText());
+                    new ViewBeliSmartphone().setVisible(true);
                     dispose();
                 }
             }

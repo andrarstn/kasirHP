@@ -23,8 +23,16 @@ public class PesananModel {
     private Integer id,jumlah;
     private String tanggal,smartphone,username;
     private PesananListener listener;
+    
     public PesananListener getLstn(){
         return listener;
+    }
+    
+    public void resetForm(){
+        setJumlah(null);
+        setSmartphone("");
+        setTanggal("");
+        setUsername("");
     }
     
     public void setLstn(PesananListener listener){
@@ -91,7 +99,6 @@ public class PesananModel {
     }
     public void insertPesanan() throws SQLException, PesananException, SmartphoneException{
         PesananDao dao = ConnectDatabase.getPesananDao();
-        SmartphoneDao sdao = ConnectDatabase.getSmartphoneDao();
         
         Pesanan p = new Pesanan();
         p.setUsername(username);
@@ -101,10 +108,6 @@ public class PesananModel {
         
         dao.insertPesanan(p);
         fireOnInsert(p);
-        
-        Smartphone s = new Smartphone();
-        s.setNama(smartphone);
-        
     }
     
     public void deleteUser() throws SQLException, PesananException{
@@ -112,5 +115,11 @@ public class PesananModel {
         
         dao.deletePesanan(id);
         fireOnDelete();
+    }
+    
+    public void getPesanan(String Username) throws SQLException, PesananException{
+        PesananDao dao = ConnectDatabase.getPesananDao();
+        
+        dao.getUserPesanan(username);
     }
 }

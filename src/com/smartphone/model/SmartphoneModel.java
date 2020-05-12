@@ -35,6 +35,7 @@ public class SmartphoneModel {
 
     public void setId(Integer id) {
         this.id = id;
+        fireOnChange();
     }
 
     public Integer getHarga() {
@@ -43,6 +44,7 @@ public class SmartphoneModel {
 
     public void setHarga(Integer harga) {
         this.harga = harga;
+        fireOnChange();
     }
 
     public Integer getStok() {
@@ -51,6 +53,7 @@ public class SmartphoneModel {
 
     public void setStok(Integer stok) {
         this.stok = stok;
+        fireOnChange();
     }
 
     public String getNama() {
@@ -59,6 +62,7 @@ public class SmartphoneModel {
 
     public void setNama(String nama) {
         this.nama = nama;
+        fireOnChange();
     }
 
     public String getMerk() {
@@ -67,6 +71,7 @@ public class SmartphoneModel {
 
     public void setMerk(String merk) {
         this.merk = merk;
+        fireOnChange();
     }
 
     public String getRilis() {
@@ -75,6 +80,7 @@ public class SmartphoneModel {
 
     public void setRilis(String rilis) {
         this.rilis = rilis;
+        fireOnChange();
     }
 
     public String getLayar() {
@@ -83,6 +89,7 @@ public class SmartphoneModel {
 
     public void setLayar(String layar) {
         this.layar = layar;
+        fireOnChange();
     }
 
     public String getKamera() {
@@ -91,6 +98,7 @@ public class SmartphoneModel {
 
     public void setKamera(String kamera) {
         this.kamera = kamera;
+        fireOnChange();
     }
 
     public String getOs() {
@@ -99,6 +107,7 @@ public class SmartphoneModel {
 
     public void setOs(String os) {
         this.os = os;
+        fireOnChange();
     }
 
     public String getCpu() {
@@ -107,6 +116,7 @@ public class SmartphoneModel {
 
     public void setCpu(String cpu) {
         this.cpu = cpu;
+        fireOnChange();
     }
 
     public String getGpu() {
@@ -115,6 +125,7 @@ public class SmartphoneModel {
 
     public void setGpu(String gpu) {
         this.gpu = gpu;
+        fireOnChange();
     }
 
     public String getRam() {
@@ -123,6 +134,7 @@ public class SmartphoneModel {
 
     public void setRam(String ram) {
         this.ram = ram;
+        fireOnChange();
     }
 
     public String getBattery() {
@@ -131,7 +143,9 @@ public class SmartphoneModel {
 
     public void setBattery(String battery) {
         this.battery = battery;
+        fireOnChange();
     }
+    
     protected void fireOnChange() {
         if (listener != null) {
             listener.onChange(this);
@@ -158,7 +172,6 @@ public class SmartphoneModel {
     }
     
     public void resetForm(){
-        setId(null);
         setNama("");
         setMerk("");
         setHarga(null);
@@ -171,6 +184,7 @@ public class SmartphoneModel {
         setRam("");
         setBattery("");
         setStok(null);
+        setId(null);
     }
     
     public void insertSmartphone() throws SQLException, SmartphoneException{
@@ -200,6 +214,7 @@ public class SmartphoneModel {
         
         s.setNama(nama);
         s.setMerk(merk);
+        s.setHarga(harga);
         s.setRilis(rilis);
         s.setLayar(layar);
         s.setKamera(kamera);
@@ -212,6 +227,17 @@ public class SmartphoneModel {
         s.setId(id);
         
         dao.updateSmartphone(s);
+        fireOnUpdate(s);
+    }
+    
+    public void updateStokSmartphone() throws SQLException, SmartphoneException{
+        SmartphoneDao dao = ConnectDatabase.getSmartphoneDao();        
+        Smartphone s = new Smartphone();
+        
+        s.setNama(nama);
+        s.setStok(stok);
+        
+        dao.updateStokSmartphone(s);
         fireOnUpdate(s);
     }
     

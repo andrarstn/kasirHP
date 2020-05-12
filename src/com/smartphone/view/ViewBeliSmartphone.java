@@ -5,20 +5,94 @@
  */
 package com.smartphone.view;
 
+import com.mysql.jdbc.Connection;
+import com.smartphone.controller.PesananController;
+import com.smartphone.database.ConnectDatabase;
+import com.smartphone.error.SmartphoneException;
+import com.smartphone.event.PesananListener;
+import com.smartphone.model.PesananModel;
+import com.smartphone.session.Session;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.text.NumberFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+
 /**
  *
  * @author DASP
  */
 public class ViewBeliSmartphone extends javax.swing.JFrame {
-
+    private final PesananController controller;
+    private final PesananModel model;
     /**
      * Creates new form ViewBeliSmartphone
      */
     public ViewBeliSmartphone() {
+        model = new PesananModel();
+        
+        controller = new PesananController();
+        controller.setModel(model);
+        
         initComponents();
         txtusername.setEditable(false);
+        txttanggal.setEditable(false);
+        txtusername.setText(Session.getUsername());
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+        txttanggal.setText(dtf.format(now));
+        
+        combobox_db();
     }
 
+    public JTextField getTxtbayar() {
+        return txtbayar;
+    }
+
+    public void setTxtbayar(JTextField txtbayar) {
+        this.txtbayar = txtbayar;
+    }
+
+    public JTextField getTxtjumlah() {
+        return txtjumlah;
+    }
+
+    public void setTxtjumlah(JTextField txtjumlah) {
+        this.txtjumlah = txtjumlah;
+    }
+
+    public JTextField getTxttanggal() {
+        return txttanggal;
+    }
+
+    public void setTxttanggal(JTextField txttanggal) {
+        this.txttanggal = txttanggal;
+    }
+
+    public JTextField getTxtusername() {
+        return txtusername;
+    }
+
+    public void setTxtusername(JTextField txtusername) {
+        this.txtusername = txtusername;
+    }
+
+    public String getComboboxhp() {
+        return comboboxhp.getSelectedItem().toString();
+    }
+
+    public void setComboboxhp(JComboBox<String> comboboxhp) {
+        this.comboboxhp = comboboxhp;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -35,7 +109,6 @@ public class ViewBeliSmartphone extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         txtusername = new javax.swing.JTextField();
-        jSpinner1 = new javax.swing.JSpinner();
         jLabel7 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -51,15 +124,27 @@ public class ViewBeliSmartphone extends javax.swing.JFrame {
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
+        namalabel = new javax.swing.JLabel();
+        merklabel = new javax.swing.JLabel();
+        hargalabel = new javax.swing.JLabel();
+        rilislabel = new javax.swing.JLabel();
+        layarlabel = new javax.swing.JLabel();
+        kameralabel = new javax.swing.JLabel();
+        oslabel = new javax.swing.JLabel();
+        cpulabel = new javax.swing.JLabel();
+        gpulabel = new javax.swing.JLabel();
+        ramlabel = new javax.swing.JLabel();
+        batterylabel = new javax.swing.JLabel();
+        stoklabel = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
         comboboxhp = new javax.swing.JComboBox<>();
         jLabel18 = new javax.swing.JLabel();
         txtbayar = new javax.swing.JTextField();
-        txtkembalian = new javax.swing.JTextField();
-        jLabel19 = new javax.swing.JLabel();
         txttanggal = new javax.swing.JTextField();
+        txtjumlah = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -100,6 +185,7 @@ public class ViewBeliSmartphone extends javax.swing.JFrame {
         jLabel6.setForeground(new java.awt.Color(240, 240, 240));
         jLabel6.setText("Jumlah");
 
+        txtusername.setEditable(false);
         txtusername.setBackground(new java.awt.Color(164, 159, 157));
         txtusername.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -112,8 +198,18 @@ public class ViewBeliSmartphone extends javax.swing.JFrame {
         jLabel7.setText("Tanggal");
 
         jButton1.setText("Pesanan Ku");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Beli");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jPanel3.setBackground(new java.awt.Color(83, 132, 231));
 
@@ -150,6 +246,33 @@ public class ViewBeliSmartphone extends javax.swing.JFrame {
         jLabel17.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel17.setText("Battery");
 
+        namalabel.setText("jLabel20");
+
+        merklabel.setText("jLabel21");
+
+        hargalabel.setText("jLabel22");
+
+        rilislabel.setText("jLabel23");
+
+        layarlabel.setText("jLabel24");
+
+        kameralabel.setText("jLabel25");
+
+        oslabel.setText("jLabel26");
+
+        cpulabel.setText("jLabel27");
+
+        gpulabel.setText("jLabel28");
+
+        ramlabel.setText("jLabel29");
+
+        batterylabel.setText("jLabel30");
+
+        stoklabel.setText("jLabel30");
+
+        jLabel20.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel20.setText("Stok");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -157,45 +280,86 @@ public class ViewBeliSmartphone extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(27, 27, 27)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel17)
-                    .addComponent(jLabel16)
-                    .addComponent(jLabel15)
-                    .addComponent(jLabel14)
-                    .addComponent(jLabel13)
-                    .addComponent(jLabel12)
-                    .addComponent(jLabel11)
-                    .addComponent(jLabel10)
-                    .addComponent(jLabel9)
+                    .addComponent(jLabel4)
                     .addComponent(jLabel8)
-                    .addComponent(jLabel4))
+                    .addComponent(jLabel9)
+                    .addComponent(jLabel10)
+                    .addComponent(jLabel11)
+                    .addComponent(jLabel12)
+                    .addComponent(jLabel13)
+                    .addComponent(jLabel14)
+                    .addComponent(jLabel15)
+                    .addComponent(jLabel16)
+                    .addComponent(jLabel17)
+                    .addComponent(jLabel20))
+                .addGap(33, 33, 33)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(batterylabel)
+                    .addComponent(ramlabel)
+                    .addComponent(gpulabel)
+                    .addComponent(cpulabel)
+                    .addComponent(oslabel)
+                    .addComponent(kameralabel)
+                    .addComponent(layarlabel)
+                    .addComponent(rilislabel)
+                    .addComponent(hargalabel)
+                    .addComponent(merklabel)
+                    .addComponent(namalabel)
+                    .addComponent(stoklabel))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addComponent(jLabel4)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(namalabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel8)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(merklabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel9)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(hargalabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel10)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(rilislabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel11)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel11)
+                    .addComponent(layarlabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel12)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel12)
+                    .addComponent(kameralabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel13)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel13)
+                    .addComponent(oslabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel14)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel14)
+                    .addComponent(cpulabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel15)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel15)
+                    .addComponent(gpulabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel16)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel16)
+                    .addComponent(ramlabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel17)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel17)
+                    .addComponent(batterylabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel20)
+                    .addComponent(stoklabel))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         jPanel4.setBackground(new java.awt.Color(17, 0, 182));
@@ -224,16 +388,23 @@ public class ViewBeliSmartphone extends javax.swing.JFrame {
         jButton3.setBackground(new java.awt.Color(186, 6, 0));
         jButton3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jButton3.setText("LOGOUT");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
-        comboboxhp.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboboxhp.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                comboboxhpItemStateChanged(evt);
+            }
+        });
 
         jLabel18.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel18.setForeground(new java.awt.Color(240, 240, 240));
         jLabel18.setText("Bayar");
 
-        jLabel19.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel19.setForeground(new java.awt.Color(240, 240, 240));
-        jLabel19.setText("Kembalian");
+        txttanggal.setEditable(false);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -253,19 +424,15 @@ public class ViewBeliSmartphone extends javax.swing.JFrame {
                                     .addComponent(jLabel2)
                                     .addComponent(jLabel5)
                                     .addComponent(jLabel6)
-                                    .addComponent(jLabel7)
                                     .addComponent(jLabel18)
-                                    .addComponent(jLabel19))
-                                .addGap(35, 35, 35)
+                                    .addComponent(jLabel7))
+                                .addGap(36, 36, 36)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txttanggal)
                                     .addComponent(txtusername, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
                                     .addComponent(comboboxhp, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(txtbayar)
-                                    .addComponent(txtkembalian)
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(0, 0, Short.MAX_VALUE))
-                                    .addComponent(txttanggal)))))
+                                    .addComponent(txtjumlah)))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jButton3)))
@@ -291,16 +458,12 @@ public class ViewBeliSmartphone extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6)
-                            .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtjumlah, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel18)
                             .addComponent(txtbayar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel19)
-                            .addComponent(txtkembalian, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(12, 12, 12)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel7)
                             .addComponent(txttanggal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -341,9 +504,81 @@ public class ViewBeliSmartphone extends javax.swing.JFrame {
     private void txtusernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtusernameActionPerformed
         
     }//GEN-LAST:event_txtusernameActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        try {
+            // TODO add your handling code here:
+            controller.beliSmartphone(this);
+            getSmartphoneDetail();
+        } catch (SmartphoneException ex) {
+            Logger.getLogger(ViewBeliSmartphone.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void comboboxhpItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboboxhpItemStateChanged
+        // TODO add your handling code here:
+        getSmartphoneDetail();
+    }//GEN-LAST:event_comboboxhpItemStateChanged
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        new ViewLogin().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        new ViewPesananku().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
+    
+    void getSmartphoneDetail(){
+        String nama = comboboxhp.getSelectedItem().toString();
+        DecimalFormat kursrupiah = (DecimalFormat) DecimalFormat.getCurrencyInstance();
+        DecimalFormatSymbols rupiah = new DecimalFormatSymbols();
+        
+        rupiah.setCurrencySymbol("Rp");
+        rupiah.setMonetaryDecimalSeparator(',');
+        rupiah.setGroupingSeparator('.');
+        
+        kursrupiah.setDecimalFormatSymbols(rupiah);
+        try {
+            Connection conn = ConnectDatabase.getKoneksi();
+            String sql = "SELECT * FROM smartphone WHERE nama="+"'"+nama+"'";
+            Statement stmt = conn.createStatement();
+            ResultSet result = stmt.executeQuery(sql);
+            while(result.next()){
+                String hargarupiah = kursrupiah.format(result.getInt("harga"));
+                namalabel.setText(result.getString("nama"));
+                merklabel.setText(result.getString("merk"));
+                hargalabel.setText(hargarupiah);
+                rilislabel.setText(String.valueOf(result.getString("rilis")));
+                layarlabel.setText(result.getString("layar"));
+                kameralabel.setText(result.getString("kamera"));
+                oslabel.setText(result.getString("os"));
+                cpulabel.setText(result.getString("cpu"));
+                gpulabel.setText(result.getString("gpu"));
+                ramlabel.setText(result.getString("ram"));
+                batterylabel.setText(result.getString("battery"));
+                stoklabel.setText(result.getString("stok"));
+            }
+        } catch (Exception e) {
+            System.out.println("Error");
+        }
+    }
     
     void combobox_db(){
-        comboboxhp.removeAllItems();
+        try {
+            Connection conn = ConnectDatabase.getKoneksi();
+            String sql = "SELECT nama FROM smartphone WHERE stok > 0";
+            Statement stmt = conn.createStatement();
+            ResultSet result = stmt.executeQuery(sql);
+            while(result.next()){
+                comboboxhp.addItem(result.getString("nama"));
+            }
+        } catch (Exception e) {
+            System.out.println("Error");
+        }
         
     }
     /**
@@ -382,7 +617,11 @@ public class ViewBeliSmartphone extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel batterylabel;
     private javax.swing.JComboBox<String> comboboxhp;
+    private javax.swing.JLabel cpulabel;
+    private javax.swing.JLabel gpulabel;
+    private javax.swing.JLabel hargalabel;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -396,8 +635,8 @@ public class ViewBeliSmartphone extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -409,9 +648,16 @@ public class ViewBeliSmartphone extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JSpinner jSpinner1;
+    private javax.swing.JLabel kameralabel;
+    private javax.swing.JLabel layarlabel;
+    private javax.swing.JLabel merklabel;
+    private javax.swing.JLabel namalabel;
+    private javax.swing.JLabel oslabel;
+    private javax.swing.JLabel ramlabel;
+    private javax.swing.JLabel rilislabel;
+    private javax.swing.JLabel stoklabel;
     private javax.swing.JTextField txtbayar;
-    private javax.swing.JTextField txtkembalian;
+    private javax.swing.JTextField txtjumlah;
     private javax.swing.JTextField txttanggal;
     private javax.swing.JTextField txtusername;
     // End of variables declaration//GEN-END:variables

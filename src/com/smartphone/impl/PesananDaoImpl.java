@@ -22,7 +22,7 @@ import java.util.List;
  */
 public class PesananDaoImpl implements PesananDao{
     private Connection conn;
-    private final String insertPesanan ="INSERT INTO pesanan"+ "(nama, tanggal, smartphone, jumlah) VALUES"+"(?,?,?,?)";
+    private final String insertPesanan ="INSERT INTO pesanan"+ "(username, tanggal, smartphone, jumlah) VALUES"+"(?,?,?,?)";
     private final String deletePesanan ="DELETE pesanan WHERE id=?";
     private final String getUserPesanan ="SELECT * FROM pesanan WHERE username=?";
     private final String getAllPesanan ="SELECT * FROM pesanan";

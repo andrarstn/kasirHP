@@ -102,8 +102,6 @@ public class UserController {
         
         if(nama.trim().equals("")){
             JOptionPane.showMessageDialog(view, "Nama tidak boleh kosong");
-        }else if(username.trim().equals("")){
-            JOptionPane.showMessageDialog(view, "Username tidak boleh kosong");
         }else{
             model.setId(id);
             model.setNama(nama);
