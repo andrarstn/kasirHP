@@ -14,6 +14,7 @@ import com.smartphone.event.SmartphoneListener;
 import com.smartphone.model.SmartphoneModel;
 import com.smartphone.model.TableModelSmartphone;
 import com.smartphone.service.SmartphoneDao;
+import com.smartphone.session.Session;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.awt.Cursor;
@@ -171,6 +172,7 @@ public class ViewAdminInputSmartphone extends javax.swing.JFrame implements Smar
         jLabel1 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -214,10 +216,10 @@ public class ViewAdminInputSmartphone extends javax.swing.JFrame implements Smar
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(240, 240, 240));
         jLabel1.setText("Input Data Smartphone");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 30, -1, -1));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 30, -1, -1));
 
         jLabel15.setForeground(new java.awt.Color(240, 240, 240));
-        jLabel15.setText("SMARTPHONE");
+        jLabel15.setText("PESANAN USER");
         jLabel15.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel15MouseClicked(evt);
@@ -226,7 +228,7 @@ public class ViewAdminInputSmartphone extends javax.swing.JFrame implements Smar
                 jLabel15MouseEntered(evt);
             }
         });
-        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 10, -1, -1));
+        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 10, -1, -1));
 
         jLabel16.setForeground(new java.awt.Color(240, 240, 240));
         jLabel16.setText("DASHBOARD");
@@ -239,6 +241,18 @@ public class ViewAdminInputSmartphone extends javax.swing.JFrame implements Smar
             }
         });
         jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+
+        jLabel17.setForeground(new java.awt.Color(240, 240, 240));
+        jLabel17.setText("SMARTPHONE");
+        jLabel17.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel17MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel17MouseEntered(evt);
+            }
+        });
+        jPanel1.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 10, -1, -1));
 
         jPanel2.setBackground(new java.awt.Color(0, 16, 65));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -351,6 +365,11 @@ public class ViewAdminInputSmartphone extends javax.swing.JFrame implements Smar
         jButton4.setBackground(new java.awt.Color(186, 6, 0));
         jButton4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jButton4.setText("LOGOUT");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
         jPanel2.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 324, -1, -1));
 
         jLabel14.setForeground(new java.awt.Color(240, 240, 240));
@@ -382,15 +401,15 @@ public class ViewAdminInputSmartphone extends javax.swing.JFrame implements Smar
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 733, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 732, Short.MAX_VALUE)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 484, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 473, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
@@ -422,6 +441,9 @@ public class ViewAdminInputSmartphone extends javax.swing.JFrame implements Smar
 
     private void jLabel15MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel15MouseClicked
         // TODO add your handling code here:
+        ViewAdminPesananUser vpu=new ViewAdminPesananUser();
+        vpu.setVisible(true);
+        dispose();
 
     }//GEN-LAST:event_jLabel15MouseClicked
 
@@ -449,8 +471,8 @@ public class ViewAdminInputSmartphone extends javax.swing.JFrame implements Smar
     private void jLabel16MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel16MouseEntered
         // TODO add your handling code here:
         Cursor cursor = new Cursor(Cursor.HAND_CURSOR);
-        jLabel7.setCursor(cursor);
-        jLabel7.setVisible(true);
+        jLabel16.setCursor(cursor);
+        jLabel16.setVisible(true);
     }//GEN-LAST:event_jLabel16MouseEntered
 
     private void txtidPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_txtidPropertyChange
@@ -461,6 +483,25 @@ public class ViewAdminInputSmartphone extends javax.swing.JFrame implements Smar
         // TODO add your handling code here:
         controller.updateSmartphone(this);
     }//GEN-LAST:event_btnubahActionPerformed
+
+    private void jLabel17MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel17MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel17MouseClicked
+
+    private void jLabel17MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel17MouseEntered
+        // TODO add your handling code here:
+        Cursor cursor = new Cursor(Cursor.HAND_CURSOR);
+        jLabel17.setCursor(cursor);
+        jLabel17.setVisible(true);
+    }//GEN-LAST:event_jLabel17MouseEntered
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        ViewLogin vl = new ViewLogin();
+        Session.setUsername("");
+        vl.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -512,6 +553,7 @@ public class ViewAdminInputSmartphone extends javax.swing.JFrame implements Smar
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

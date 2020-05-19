@@ -7,8 +7,13 @@ package com.smartphone.view;
 
 import com.smartphone.controller.PesananController;
 import com.smartphone.model.PesananModel;
+import com.smartphone.database.ConnectDatabase;
 import com.smartphone.session.Session;
 import javax.swing.JFrame;
+import javax.swing.table.DefaultTableModel;
+import com.mysql.jdbc.Statement;
+import java.sql.ResultSet;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -20,6 +25,34 @@ public class ViewPesananku extends javax.swing.JFrame {
     /**
      * Creates new form ViewPesananku
      */
+    private void datatable(){
+        DefaultTableModel tbl = new DefaultTableModel();
+        tbl.addColumn("ID");
+        tbl.addColumn("Username");
+        tbl.addColumn("Tanggal");
+        tbl.addColumn("Smartphone");
+        tbl.addColumn("Jumlah");
+        table.setModel(tbl);
+        try{
+            Statement statement = (Statement) ConnectDatabase.getKoneksi().createStatement();
+            ResultSet res=statement.executeQuery("select*from pesanan where username='"+Session.getUsername()+"';");
+            while(res.next()){
+                tbl.addRow(new Object[]{
+                    res.getString("id"),
+                    res.getString("username"),
+                    res.getString("tanggal"),
+                    res.getString("smartphone"),
+                    res.getString("jumlah"),
+                });
+                table.setModel(tbl);
+            }
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(rootPane, "Gagal");
+        }
+        
+    }
+    
     public ViewPesananku() {
         model = new PesananModel();
         
@@ -28,6 +61,7 @@ public class ViewPesananku extends javax.swing.JFrame {
         initComponents();
         
         txtusername.setText(Session.getUsername());
+        datatable();
     }
 
     /**
@@ -43,7 +77,7 @@ public class ViewPesananku extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tabelpesanan = new javax.swing.JTable();
+        table = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         txtusername = new javax.swing.JLabel();
@@ -80,7 +114,7 @@ public class ViewPesananku extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(0, 16, 65));
 
-        tabelpesanan.setModel(new javax.swing.table.DefaultTableModel(
+        table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -91,13 +125,23 @@ public class ViewPesananku extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(tabelpesanan);
+        jScrollPane1.setViewportView(table);
 
         jButton1.setBackground(new java.awt.Color(186, 6, 0));
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jButton1.setText("LOGOUT");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Kembali");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         txtusername.setForeground(new java.awt.Color(240, 240, 240));
         txtusername.setText("jLabel2");
@@ -158,6 +202,20 @@ public class ViewPesananku extends javax.swing.JFrame {
         this.setState(JFrame.ICONIFIED);
     }//GEN-LAST:event_aaaMouseClicked
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        new ViewBeliSmartphone().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        ViewLogin vl = new ViewLogin();
+        Session.setUsername("");
+        vl.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -200,7 +258,7 @@ public class ViewPesananku extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tabelpesanan;
+    private javax.swing.JTable table;
     private javax.swing.JLabel txtusername;
     // End of variables declaration//GEN-END:variables
 }

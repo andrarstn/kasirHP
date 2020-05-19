@@ -46,7 +46,7 @@ public class PesananController {
         
         if(stok.getStok()-jumlah<0){
             JOptionPane.showMessageDialog(view, "Stok tidak cukup");
-        }else if(bayar-stok.getHarga()<0){
+        }else if(bayar-stok.getHarga()*jumlah<0){
             JOptionPane.showMessageDialog(view, "Uang yang anda bayarkan kurang");
         }else{
             Integer newstok = stok.getStok()-jumlah;
@@ -61,7 +61,7 @@ public class PesananController {
             sm.setNama(smartphone);
             try {
                 model.insertPesanan();
-                JOptionPane.showMessageDialog(view, "Berhasil diubah");
+                JOptionPane.showMessageDialog(view, "Pesanan berhasil diproses");
                 sm.updateStokSmartphone();
                 model.resetForm();
             } catch (Exception e) {
