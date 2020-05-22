@@ -8,6 +8,7 @@ package com.smartphone.view;
 import com.smartphone.controller.UserController;
 import com.smartphone.model.TableModelUser;
 import com.smartphone.model.UserModel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 /**
@@ -27,6 +28,7 @@ public class ViewRegister extends javax.swing.JFrame {
         controller = new UserController();
         controller.setModel(model);
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     public JTextField getTxtnama() {
@@ -42,7 +44,7 @@ public class ViewRegister extends javax.swing.JFrame {
     }
 
     public void setTxtpassword(JTextField txtpassword) {
-        this.txtpassword = txtpassword;
+        this.txtpassword = (JPasswordField) txtpassword;
     }
 
     public JTextField getTxtpassword2() {
@@ -50,7 +52,7 @@ public class ViewRegister extends javax.swing.JFrame {
     }
 
     public void setTxtpassword2(JTextField txtpassword2) {
-        this.txtpassword2 = txtpassword2;
+        this.txtpassword2 = (JPasswordField) txtpassword2;
     }
 
     public JTextField getTxtusername() {
@@ -84,8 +86,8 @@ public class ViewRegister extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         daftar = new javax.swing.JButton();
-        txtpassword = new javax.swing.JTextField();
-        txtpassword2 = new javax.swing.JTextField();
+        txtpassword = new javax.swing.JPasswordField();
+        txtpassword2 = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -248,38 +250,38 @@ public class ViewRegister extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ViewRegister.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ViewRegister.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ViewRegister.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ViewRegister.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ViewRegister().setVisible(true);
-            }
-        });
-    }
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(ViewRegister.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(ViewRegister.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(ViewRegister.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(ViewRegister.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//        //</editor-fold>
+//
+//        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new ViewRegister().setVisible(true);
+//            }
+//        });
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton daftar;
@@ -295,8 +297,8 @@ public class ViewRegister extends javax.swing.JFrame {
     private javax.swing.JButton login;
     private javax.swing.JTextField txtid;
     private javax.swing.JTextField txtnama;
-    private javax.swing.JTextField txtpassword;
-    private javax.swing.JTextField txtpassword2;
+    private javax.swing.JPasswordField txtpassword;
+    private javax.swing.JPasswordField txtpassword2;
     private javax.swing.JTextField txtusername;
     // End of variables declaration//GEN-END:variables
 }

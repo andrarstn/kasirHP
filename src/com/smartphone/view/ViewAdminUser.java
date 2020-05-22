@@ -19,6 +19,7 @@ import java.awt.Cursor;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JPasswordField;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.event.ListSelectionEvent;
@@ -44,6 +45,7 @@ public class ViewAdminUser extends javax.swing.JFrame implements UserListener, L
         controller.setModel(model);
         
         initComponents();
+        this.setLocationRelativeTo(null);
         
         tableuser.getSelectionModel().addListSelectionListener(this);
         tableuser.setModel(tableModel);
@@ -124,7 +126,7 @@ public class ViewAdminUser extends javax.swing.JFrame implements UserListener, L
     }
 
     public void setTxtpassword(JTextField txtpassword) {
-        this.txtpassword = txtpassword;
+        this.txtpassword = (JPasswordField) txtpassword;
     }
 
     public JTextField getTxtpassword2() {
@@ -132,7 +134,7 @@ public class ViewAdminUser extends javax.swing.JFrame implements UserListener, L
     }
 
     public void setTxtpassword2(JTextField txtpassword2) {
-        this.txtpassword2 = txtpassword2;
+        this.txtpassword2 = (JPasswordField) txtpassword2;
     }
     
     /**
@@ -145,21 +147,16 @@ public class ViewAdminUser extends javax.swing.JFrame implements UserListener, L
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        txtid = new javax.swing.JTextField();
-        txtusername = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableuser = new javax.swing.JTable();
         jLabel4 = new javax.swing.JLabel();
-        txtnama = new javax.swing.JTextField();
         btnsimpan = new javax.swing.JButton();
         btnbatal = new javax.swing.JButton();
         btnhapus = new javax.swing.JButton();
         btntambah = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
-        txtpassword = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        txtpassword2 = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -167,6 +164,11 @@ public class ViewAdminUser extends javax.swing.JFrame implements UserListener, L
         jLabel10 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jButton4 = new javax.swing.JButton();
+        txtusername = new javax.swing.JTextField();
+        txtnama = new javax.swing.JTextField();
+        txtid = new javax.swing.JTextField();
+        txtpassword = new javax.swing.JPasswordField();
+        txtpassword2 = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -175,15 +177,6 @@ public class ViewAdminUser extends javax.swing.JFrame implements UserListener, L
         jLabel1.setForeground(new java.awt.Color(240, 240, 240));
         jLabel1.setText("ID");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 110, -1, -1));
-
-        txtid.setEditable(false);
-        txtid.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtidActionPerformed(evt);
-            }
-        });
-        getContentPane().add(txtid, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 100, 222, -1));
-        getContentPane().add(txtusername, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 180, 222, -1));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(240, 240, 240));
@@ -209,7 +202,6 @@ public class ViewAdminUser extends javax.swing.JFrame implements UserListener, L
         jLabel4.setForeground(new java.awt.Color(240, 240, 240));
         jLabel4.setText("NAMA");
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 150, -1, -1));
-        getContentPane().add(txtnama, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 140, 222, -1));
 
         btnsimpan.setText("SIMPAN");
         btnsimpan.addActionListener(new java.awt.event.ActionListener() {
@@ -248,18 +240,10 @@ public class ViewAdminUser extends javax.swing.JFrame implements UserListener, L
         jLabel5.setText("PASSWORD");
         getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 230, -1, -1));
 
-        txtpassword.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtpasswordActionPerformed(evt);
-            }
-        });
-        getContentPane().add(txtpassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 230, 222, -1));
-
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(240, 240, 240));
         jLabel6.setText("ULANGI PASSWORD");
         getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 270, -1, -1));
-        getContentPane().add(txtpassword2, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 270, 222, -1));
 
         jPanel1.setBackground(new java.awt.Color(70, 4, 5));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -319,6 +303,18 @@ public class ViewAdminUser extends javax.swing.JFrame implements UserListener, L
             }
         });
         jPanel2.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 430, -1, -1));
+        jPanel2.add(txtusername, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 110, 222, -1));
+        jPanel2.add(txtnama, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 70, 222, -1));
+
+        txtid.setEditable(false);
+        txtid.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtidActionPerformed(evt);
+            }
+        });
+        jPanel2.add(txtid, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 30, 222, -1));
+        jPanel2.add(txtpassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 150, 220, -1));
+        jPanel2.add(txtpassword2, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 190, 220, -1));
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 600, 480));
 
@@ -344,10 +340,6 @@ public class ViewAdminUser extends javax.swing.JFrame implements UserListener, L
         // TODO add your handling code here:
         controller.deleteUser(this);
     }//GEN-LAST:event_btnhapusActionPerformed
-
-    private void txtpasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtpasswordActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtpasswordActionPerformed
 
     private void txtidActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtidActionPerformed
         // TODO add your handling code here:
@@ -469,8 +461,8 @@ public class ViewAdminUser extends javax.swing.JFrame implements UserListener, L
     private javax.swing.JTable tableuser;
     private javax.swing.JTextField txtid;
     private javax.swing.JTextField txtnama;
-    private javax.swing.JTextField txtpassword;
-    private javax.swing.JTextField txtpassword2;
+    private javax.swing.JPasswordField txtpassword;
+    private javax.swing.JPasswordField txtpassword2;
     private javax.swing.JTextField txtusername;
     // End of variables declaration//GEN-END:variables
 }

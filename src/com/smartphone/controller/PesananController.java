@@ -16,6 +16,8 @@ import com.smartphone.service.SmartphoneDao;
 import com.smartphone.view.ViewBeliSmartphone;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import javax.swing.JOptionPane;
 
 /**
@@ -60,8 +62,17 @@ public class PesananController {
             sm.setStok(newstok);
             sm.setNama(smartphone);
             try {
+                DecimalFormat kursrupiah = (DecimalFormat) DecimalFormat.getCurrencyInstance();
+                DecimalFormatSymbols rupiah = new DecimalFormatSymbols();
+        
+                rupiah.setCurrencySymbol("Rp");
+                rupiah.setMonetaryDecimalSeparator(',');
+                rupiah.setGroupingSeparator('.');
+
+                kursrupiah.setDecimalFormatSymbols(rupiah);
+                Integer kembalian = bayar-stok.getHarga()*jumlah;
                 model.insertPesanan();
-                JOptionPane.showMessageDialog(view, "Pesanan berhasil diproses");
+                JOptionPane.showMessageDialog(view, "Pesanan berhasil diproses. Uang kembalian anda Rp"+kursrupiah.format(kembalian));
                 sm.updateStokSmartphone();
                 model.resetForm();
             } catch (Exception e) {
